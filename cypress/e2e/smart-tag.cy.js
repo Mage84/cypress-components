@@ -14,7 +14,8 @@ describe('smart-tag component', () => {
   it('hide tag on exit hover', () => {
     cy.getDataCy('see-more-btn').trigger('mouseover');
     cy.getDataCy('tag-container').should('be.visible');
-    cy.getDataCy('see-more-btn').trigger('mouseout');
+    // cy.getDataCy('see-more-btn').trigger('mouseleave');
+    cy.getDataCy('title').trigger('mouseover');
     cy.getDataCy('tag-container').should('be.not.visible');
   })
 })
