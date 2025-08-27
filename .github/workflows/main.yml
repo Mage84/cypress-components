@@ -12,8 +12,26 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
 
-      - name: Install dependencies
+      - name: Install npm dependencies
         run: npm ci
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+
+      - name: Install python dependencies
+        run: pip install -r requirements.txt
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
+
+      - name: Notify Discord on Success
+        if: success()
+        run: python .github/scripts/notify_discord.py "success"
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Notify Discord on Failure
+        if: failure()
+        run: python .github/scripts/notify_discord.py "failure"
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
