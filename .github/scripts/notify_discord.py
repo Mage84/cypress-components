@@ -11,13 +11,8 @@ def send_discord_notification(status, repo):
         "embeds": [
             {
                 "title": f"CI Test {'Passed' if status == 'success' else 'Failed'}",
-                "description": f"Build for [{repo}](https://github.com/{repo})",
+                "description": f"Build for [cypress-components]({repo})",
                 "color": color,
-                # "fields": [
-                #     {"name": "Commit", "value": commit_sha[:7], "inline": True},
-                #     {"name": "Author", "value": actor, "inline": True},
-                #     {"name": "Status", "value": status.capitalize(), "inline": True}
-                # ]
             }
         ]
     }
@@ -29,7 +24,5 @@ def send_discord_notification(status, repo):
 if __name__ == "__main__":
     status = sys.argv[1]  # "success" or "failure"
     repo = "https://github.com/Mage84/cypress-components.git"
-    # commit_sha = os.getenv("GITHUB_SHA", "unknown")
-    # actor = os.getenv("GITHUB_ACTOR", "unknown")
 
     send_discord_notification(status, repo)
